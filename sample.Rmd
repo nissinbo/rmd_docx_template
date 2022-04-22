@@ -1,0 +1,83 @@
+---
+title: |
+  titleを改行するには  
+  スペース2つ入れて改行して  
+  文章を続ける
+subtitle: "サブタイトル"
+author: "TN"
+date: "`r format(Sys.time(), '%Y/%m/%d')`"
+output:
+  word_document:
+    reference_docx: reference.docx
+toc: true
+toc-title: 目次
+---
+
+<!-- authorを複数入れたり、改行するのは現状できない? -->
+<!-- authorの情報を入れるのは? -->
+<!-- reference_docxでWordのテンプレ指定 -->
+<!-- knitから始まるところで出力先フォルダ・名前指定 -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# これはなに
+
+R Markdownからdocx(Word)に変換するときのR Markdown側のテンプレです。
+上のYAMLをコピペしてknitすればWord文書完成。
+更にreference.docxを適切な場所に置いてknitすると、そのスタイルが読み込まれたWord文書ができます。
+
+
+## reference.docxの説明
+
+reference.docxを作ったときのことを記録しておく。
+
+- 「白黒」ていうスタイルをベースに作成する。
+- 余白:やや狭い
+- スタイル
+  - 全体に適用したいものは「標準」で変更
+  - フォント
+    - 本文日本語:游明朝
+    - 本文英語:Calibri
+    - 表題や見出し系:游ゴシック
+  - フォントサイズ:本文は10.5 それ以外はデフォルトのまま
+- ページ番号を追加
+- 見出し1-9のフォント→小型英大文字のチェックを外す
+
+# 出力例
+
+## tableを表示する
+
+{knitr}のkable()を使うといい感じ。
+自動で図表に番号付与したりできないかな？
+
+```{r}
+knitr::kable(head(iris), caption = "表1. アレコレ")
+```
+
+\newpage
+
+※\\newpageをつけると改ページされる。
+
+## console表示
+
+```{r cars}
+summary(iris)
+```
+
+## plot表示
+
+```{r pressure, echo=FALSE}
+plot(iris$Sepal.Length, iris$Sepal.Width)
+```
+
+`echo = FALSE`をつけると**Rコードが出力されない**。
+
+
+# 参考文献
+
+- reference.docxを作るとき
+  - [niszetさん](https://niszet.hatenablog.com/entry/2018/01/14/214800)
+  - [これも有益](https://qiita.com/pooshikin/items/b6fa4b9341b50cacddaf)
+
